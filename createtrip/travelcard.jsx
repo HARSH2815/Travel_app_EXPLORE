@@ -55,17 +55,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginBottom: 4,
   },
   location: {
     fontSize: 12,
     color: '#888',
     marginBottom: 4,
+    fontFamily:'outfit-regular'
   },
   description: {
+    fontFamily:'outfit-medium',
     fontSize: 12,
     marginBottom: 4,
-    lineHeight: 18, // Adjust line height for better readability
+    lineHeight: 18, 
   },
 });

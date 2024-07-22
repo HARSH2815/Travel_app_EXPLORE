@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 20,
-    fontFamily: 'outfit',
+    fontFamily: 'outfit-regular',
     textAlign: 'center',
     color: 'grey',
   },

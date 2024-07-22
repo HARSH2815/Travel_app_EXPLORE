@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   cardContent: {
+    fontFamily:'outfit-regular',
     fontSize: 16,
     color: '#666',
   },

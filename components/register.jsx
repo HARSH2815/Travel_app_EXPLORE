@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 5,
         lineHeight: 25,
-        fontFamily: "regular",
+        fontFamily: "outfit-regular",
     },
     input: {
         height: 40,

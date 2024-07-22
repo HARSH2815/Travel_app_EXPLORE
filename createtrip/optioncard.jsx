@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     fontFamily: 'outfit-bold',
   },
   desc: {
+    fontFamily:'outfit-regular',
     fontSize: 14,
     color: 'grey',
   },

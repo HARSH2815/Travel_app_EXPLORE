@@ -37,10 +37,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginTop: 8,
   },
   location: {
+    fontFamily:'outfit-regular',
     fontSize: 12,
     color: '#888',
     marginTop: 4,

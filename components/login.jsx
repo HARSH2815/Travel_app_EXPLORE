@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     color: "#7d7d7d",
     paddingBottom: 20,
     lineHeight: 25,
-    fontFamily: "regular",
+    fontFamily: "outfit-regular",
   },
   inputcontainer: {
     marginTop: 20,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     lineHeight: 25,
-    fontFamily: "regular",
+    fontFamily: "outfit-regular",
   },
   button: {
     backgroundColor: 'black',

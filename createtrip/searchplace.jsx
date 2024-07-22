@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginHorizontal: 4,
     marginBottom: 8,
   },

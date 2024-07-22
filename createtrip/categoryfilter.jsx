@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   filterText: {
+    fontFamily:'outfit-medium',
     color: '#fff',
   },
   selectedFilterText: {
