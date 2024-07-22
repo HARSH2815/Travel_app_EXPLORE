@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ImageBackground, ToastAndroid } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/firebaseconfig';
 import CustomButton from './reusebutton';
-const bg = require('../assets/images/bg1.jpg')
+
+const bg = require('../assets/images/bg1.jpg');
+
 const RegisterScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -10,15 +14,24 @@ const RegisterScreen = ({ navigation }) => {
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
     useEffect(() => {
-        setIsButtonEnabled(username.length > 0 && email.length > 0 && password.length > 0 && password == confirmPassword);
+        setIsButtonEnabled(username.length > 0 && email.length > 0 && password.length > 0 && password === confirmPassword);
     }, [username, email, password, confirmPassword]);
 
-    const handleRegister = () => {
-        console.log('Doing registration:', { username, email, password });
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+  
+
+    const createAccount = () => {
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                ToastAndroid.show('Account created successfully', ToastAndroid.LONG);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                ToastAndroid.show(errorMessage, ToastAndroid.LONG);
+            });
     };
 
     return (
@@ -27,7 +40,7 @@ const RegisterScreen = ({ navigation }) => {
             style={styles.backgroundImage}
         >
             <View style={styles.maincontainer}>
-                <Text style={styles.mainheader}>Register</Text>
+                <Text style={styles.mainheader}>Sign Up</Text>
                 <View style={styles.inputcontainer}>
                     <Text style={styles.labels}>Enter Username</Text>
                     <TextInput
@@ -60,19 +73,20 @@ const RegisterScreen = ({ navigation }) => {
                         onChangeText={setConfirmPassword}
                     />
                 </View>
-                {/* <TouchableOpacity
-                    style={[styles.button, isButtonEnabled ? styles.buttonEnabled : styles.buttonDisabled]}
-                    disabled={!isButtonEnabled}
-                    onPress={handleRegister}
-                >
-                    <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity> */}
                 <CustomButton
-                    title="Register"
-                    onPress={() => {
-                        navigation.navigate('LoginScreen');
+                    title="Create Account"
+                    onPress={()=>{
+                        createAccount()
                     }}
                     isEnabled={isButtonEnabled}
+                />
+                <CustomButton
+                    title="Sign In"
+                    onPress={() => {
+                        navigation.navigate('LoginPage');
+                    }}
+                    isEnabled={true}
+                    style={styles.button}
                 />
             </View>
         </ImageBackground>
@@ -99,7 +113,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 15,
         textTransform: "capitalize",
-        fontFamily: "bold",
+        fontFamily: "outfit-bold",
     },
     inputcontainer: {
         marginTop: 20,
@@ -121,11 +135,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     button: {
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        marginTop: 20,
+        backgroundColor: 'black',
     },
     buttonEnabled: {
         backgroundColor: '#244055',

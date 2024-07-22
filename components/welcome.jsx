@@ -7,20 +7,20 @@ const logo = require('../assets/images/LOGO.png');
 
 const WelcomePage = ({ navigation }) => {
   return (
+
     <ImageBackground source={bg} style={styles.backgroundImage}>
       <View style={styles.maincontainer}>
         <Image source={logo} style={styles.logo} />
         <Text style={styles.mainheader}>Welcome to EXPLORE!!!</Text>
-        {/* <Text style={styles.description}>Please choose an option to continue.</Text> */}
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="Login"
-            onPress={() => navigation.navigate('LoginScreen')}
+            title="Sign In"
+            onPress={() => navigation.navigate('LoginPage')}
             style={styles.button}
           />
           <CustomButton
-            title="Register"
-            onPress={() => navigation.navigate('RegisterScreen')}
+            title="Sign Up"
+            onPress={() => navigation.navigate('RegisterPage')}
             style={styles.button}
           />
         </View>

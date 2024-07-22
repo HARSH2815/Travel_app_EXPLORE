@@ -1,37 +1,46 @@
-import React,{useState,useEffect} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,Text,View,TextInput,ImageBackground } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import CustomButton from './reusebutton';
+import CustomTextInput from './reuseinput'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/firebaseconfig';
 
-const bg=require('../assets/images/bg1.jpg')
-const HomeScreen=({ navigation }) => {
-  const [username,setUsername]=useState('');
-  const [password,setPassword]=useState('');
-  const [isButtonEnabled,setIsButtonEnabled]=useState(false);
+const bg = require('../assets/images/bg1.jpg');
+
+const HomeScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
-    setIsButtonEnabled(username.length > 0 && password.length > 0);
-  },[username,password]);
+    setIsButtonEnabled(email.length > 0 && password.length > 0);
+  }, [email, password]);
+
+  const onSignIn = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('User signed in:', userCredential.user);
+      navigation.navigate('LandingPage');
+    } catch (error) {
+      console.error('Error during sign-in:', error.message);
+    }
+  };
 
   return (
-    <ImageBackground
-      source={bg}
-      style={styles.backgroundImage}
-    >
+    <ImageBackground source={bg} style={styles.backgroundImage}>
       <View style={styles.maincontainer}>
-        <Text style={styles.mainheader}>HI! USER</Text>
-        <Text style={styles.description}>Login Form</Text>
+        <Text style={styles.mainheader}>Let's Sign You In</Text>
+        <Text style={styles.description}>Welcome Back</Text>
+        <Text style={styles.description}>You've been missed</Text>
         <View style={styles.inputcontainer}>
-          <Text style={styles.labels}>Enter Username</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
+          <Text style={styles.labels}>Enter Email</Text>
+          <CustomTextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
           />
           <Text style={styles.labels}>Enter Password</Text>
-          <TextInput
-            style={styles.input}
+          <CustomTextInput
             secureTextEntry={true}
             placeholder="Passkey"
             value={password}
@@ -39,18 +48,29 @@ const HomeScreen=({ navigation }) => {
           />
         </View>
         <CustomButton
-          title="Login"
-          onPress={() => {
-            navigation.navigate('LandingPage');
-          }}
+          title="Sign In"
+          onPress={onSignIn}
           isEnabled={isButtonEnabled}
+          style={isButtonEnabled ? styles.buttonEnabled : styles.buttonDisabled}
+          textStyle={styles.buttonText}
+        />
+        <CustomButton
+          title="Sign Up"
+          onPress={() => navigation.navigate('RegisterPage')}
+          isEnabled={true}
+          style={[styles.button, styles.buttonText]}
+        />
+        <CustomButton
+          title="Sign In With Google"
+          isEnabled={true}
+          style={[styles.button, styles.buttonText]}
         />
       </View>
     </ImageBackground>
   );
 };
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -70,7 +90,7 @@ const styles=StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 15,
     textTransform: "capitalize",
-    fontFamily: "bold",
+    fontFamily: "outfit-bold",
   },
   description: {
     fontSize: 20,
@@ -90,20 +110,9 @@ const styles=StyleSheet.create({
     lineHeight: 25,
     fontFamily: "regular",
   },
-  input: {
-    height: 40,
-    borderColor: '#7d7d7d',
-    borderWidth: 1,
-    paddingLeft: 10,
-    marginBottom: 20,
-    borderRadius: 5,
-  },
   button: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 20,
+    backgroundColor: 'black',
+    marginTop: 10,
   },
   buttonEnabled: {
     backgroundColor: '#244055',
@@ -115,6 +124,8 @@ const styles=StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 12,
   },
 });
 
