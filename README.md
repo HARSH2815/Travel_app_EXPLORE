@@ -27,6 +27,10 @@ WELCOME-->SIGNUP-->SIGNIN-->MYTRIPS-->LOCATION-->TRAVELLERTYPE-->PICKDAYS-->REVI
 
 
 
+![PICKDAYS](https://github.com/user-attachments/assets/7a3485bc-76d0-42c9-b12f-d9bbfcd777bb)
+
+
+
 ![REVIEWPAGE](https://github.com/user-attachments/assets/61ecf573-dabd-48b6-923a-dc0c37a4a101)
 
 
