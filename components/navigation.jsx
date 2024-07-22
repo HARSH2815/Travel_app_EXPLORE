@@ -10,6 +10,7 @@ import SearchPage from '../createtrip/searchplace';
 import SelectTraveller from '../createtrip/selecttraveller';
 import PickDatePage from '../createtrip/pickdate';
 import ReviewPage from '../createtrip/review';
+import ProfilePage from '../tabs/profile';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ const Navigation = () => {
             <Stack.Screen name="SelectTraveller" component={SelectTraveller} options={{ headerShown: false }} />
             <Stack.Screen name="PickDatePage" component={PickDatePage} options={{ headerShown: false }} />
             <Stack.Screen name="ReviewPage" component={ReviewPage} options={{ headerShown: false }} />
+            <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false }} />
           </>
         ) : (
           <>

@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
     color: '#244055',
     marginBottom: 20,
   },
+  selectedOption: {
+    fontFamily:'outfit-medium',
+  },
   selectedLocation: {
     fontSize: 20,
     fontFamily: 'outfit-bold',

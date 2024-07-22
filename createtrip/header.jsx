@@ -9,10 +9,9 @@ export default function Header({ navigation }) {
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <View style={styles.rightHeader}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProfilePage')}>
           <Image source={require('../assets/images/PROFILE.jpg')} style={styles.profilePic} />
         </TouchableOpacity>
-        {/* Add any additional header items here */}
       </View>
     </View>
   );

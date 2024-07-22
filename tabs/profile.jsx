@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 const ProfileScreen = () => {
   const [username, setUsername] = useState('Harsh Prasad');
   const [email, setEmail] = useState('harsh.gis9000@gmail.com');
-  const [bio, setBio] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+  const [bio, setBio] = useState('Bio:Lorem ipsum dolor sit amet, consectetur adipiscing.');
   const [newUsername, setNewUsername] = useState(username);
   const [newEmail, setNewEmail] = useState(email);
   const [newBio, setNewBio] = useState(bio);
@@ -114,15 +114,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   username: {
+    fontFamily:'outfit-medium',
     fontSize: 24,
     marginTop: 10,
   },
   email: {
+    fontFamily:'outfit-regular',
     fontSize: 18,
     color: '#666',
     marginTop: 5,
   },
   bio: {
+    fontFamily:'outfit-regular',
     fontSize: 16,
     marginTop: 10,
     textAlign: 'center',
@@ -137,6 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '100%',
     fontSize: 18,
+    fontFamily:'outfit-medium'
   },
   bioInput: {
     height: 100,
@@ -155,6 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   editButtonText: {
+    fontFamily:'outfit-medium',
     marginLeft: 10,
     fontSize: 18,
   },

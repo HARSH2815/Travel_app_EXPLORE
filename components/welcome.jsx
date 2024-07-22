@@ -55,15 +55,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 15,
     textTransform: "capitalize",
-    fontFamily: "bold",
-    textAlign: 'center',
-  },
-  description: {
-    fontSize: 20,
-    color: "#7d7d7d",
-    paddingBottom: 20,
-    lineHeight: 25,
-    fontFamily: "regular",
+    fontFamily: "outfit-bold",
     textAlign: 'center',
   },
   buttonContainer: {

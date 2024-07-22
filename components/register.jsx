@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
         fontFamily: "outfit-regular",
     },
     input: {
+        fontFamily:'outfit-medium',
         height: 40,
         borderColor: '#7d7d7d',
         borderWidth: 1,

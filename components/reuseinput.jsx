@@ -21,6 +21,7 @@ const CustomTextInput = ({
 
 const styles = StyleSheet.create({
   input: {
+    fontFamily:'outfit-medium',
     height: 40,
     borderColor: '#7d7d7d',
     borderWidth: 1,

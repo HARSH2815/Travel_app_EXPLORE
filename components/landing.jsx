@@ -4,7 +4,7 @@ import TabNavigator from '../tabs/layout';
 
 const bg = require('../assets/images/bg1.jpg');
 
-const LandingPage = ({ navigation }) => {
+const LandingPage = () => {
   return (
     <ImageBackground source={bg} style={styles.backgroundImage}>
       <View style={styles.maincontainer}>
