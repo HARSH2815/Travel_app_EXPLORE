@@ -4,6 +4,7 @@ import CustomButton from './reusebutton';
 import CustomTextInput from './reuseinput'; 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseconfig';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const bg = require('../assets/images/bg1.jpg');
 
@@ -20,7 +21,13 @@ const HomeScreen = ({ navigation }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('User signed in:', userCredential.user);
-      navigation.navigate('LandingPage');
+
+      // Store the user ID in AsyncStorage
+      // const userId = userCredential.user.uid;
+      // await AsyncStorage.setItem('currentUserId', userId);
+
+      // Navigate to the TabNavigator
+      navigation.navigate('TabNavigator');
     } catch (error) {
       console.error('Error during sign-in:', error.message);
     }
@@ -52,18 +59,17 @@ const HomeScreen = ({ navigation }) => {
           onPress={onSignIn}
           isEnabled={isButtonEnabled}
           style={isButtonEnabled ? styles.buttonEnabled : styles.buttonDisabled}
-          textStyle={styles.buttonText}
         />
         <CustomButton
           title="Sign Up"
           onPress={() => navigation.navigate('RegisterPage')}
           isEnabled={true}
-          style={[styles.button, styles.buttonText]}
+          style={[styles.button]}
         />
         <CustomButton
           title="Sign In With Google"
           isEnabled={true}
-          style={[styles.button, styles.buttonText]}
+          style={[styles.button]}
         />
       </View>
     </ImageBackground>
@@ -112,21 +118,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'black',
-    marginTop: 10,
   },
   buttonEnabled: {
     backgroundColor: '#244055',
   },
   buttonDisabled: {
     backgroundColor: '#7d7d7d',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 12,
-  },
+  }
 });
 
 export default HomeScreen;

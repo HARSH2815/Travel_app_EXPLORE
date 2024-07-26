@@ -1,12 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-export default function TravelCard({ item, isFirstItem }) {
-  const navigation = useNavigation();
-
+export default function TravelCard({ item, isSelected, onSelect }) {
   const handlePress = () => {
-    navigation.navigate('SelectTraveller', { prevData: item });
+    onSelect(item);
   };
 
   // Placeholder text
@@ -14,7 +11,7 @@ export default function TravelCard({ item, isFirstItem }) {
 
   return (
     <TouchableOpacity
-      style={[styles.card, isFirstItem && styles.firstCard]}
+      style={[styles.card, isSelected ? styles.selectedCard : null]}
       onPress={handlePress}
     >
       <Image source={item.image} style={styles.image} />
@@ -40,9 +37,9 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-  firstCard: {
+  selectedCard: {
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: '#244055', // Border color for selected card
   },
   image: {
     width: '100%',
@@ -62,12 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#888',
     marginBottom: 4,
-    fontFamily:'outfit-regular'
+    fontFamily: 'outfit-regular',
   },
   description: {
-    fontFamily:'outfit-medium',
+    fontFamily: 'outfit-medium',
     fontSize: 12,
     marginBottom: 4,
-    lineHeight: 18, 
+    lineHeight: 18,
   },
 });

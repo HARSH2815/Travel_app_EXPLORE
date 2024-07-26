@@ -5,23 +5,24 @@ import { Ionicons } from '@expo/vector-icons';
 import OptionCard from './optioncard';
 import { SelectTravellist } from './require/options';
 
+
 export default function SelectTraveller({ route }) {
   const { prevData } = route.params;
   const [selectedOption, setSelectedOption] = useState(null);
   const navigation = useNavigation(); 
+
   const handleSelectOption = (option) => {
     setSelectedOption(option);
   };
 
   const goToPickDates = () => {
     if (selectedOption) {
-      navigation.navigate('PickDatePage', {
+      navigation.navigate('DatePage', {
         prevData: prevData,
         selectedOption: selectedOption,
       });
     }
   };
-  
 
   return (
     <View style={styles.container}>
@@ -30,14 +31,11 @@ export default function SelectTraveller({ route }) {
       </TouchableOpacity>
       
       <Text style={styles.heading}>Select Traveler Type</Text>
-      
-      {/* Display previously selected location */}
       <Text style={styles.selectedLocation}>Selected Location: {prevData.title}</Text>
       {selectedOption && (
         <Text style={styles.selectedOption}>Traveler Type: {selectedOption.title}</Text>
       )}
 
-      {/* FlatList to display travel options */}
       <FlatList
         data={SelectTravellist}
         renderItem={({ item }) => (
@@ -51,7 +49,6 @@ export default function SelectTraveller({ route }) {
         keyExtractor={(item) => item.id}
       />
 
-      {/* Button to navigate to PickDatesScreen */}
       <TouchableOpacity
         onPress={goToPickDates}
         style={[styles.nextButton, !selectedOption && { backgroundColor: '#ccc' }]}
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   selectedOption: {
-    fontFamily:'outfit-medium',
+    fontFamily: 'outfit-medium',
   },
   selectedLocation: {
     fontSize: 20,

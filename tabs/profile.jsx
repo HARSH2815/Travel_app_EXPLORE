@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signOut } from 'firebase/auth'; 
+import { auth } from '../config/firebaseconfig'; 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [username, setUsername] = useState('Harsh Prasad');
   const [email, setEmail] = useState('harsh.gis9000@gmail.com');
-  const [bio, setBio] = useState('Bio:Lorem ipsum dolor sit amet, consectetur adipiscing.');
+  const [bio, setBio] = useState('Bio: Lorem ipsum dolor sit amet, consectetur adipiscing.');
   const [newUsername, setNewUsername] = useState(username);
   const [newEmail, setNewEmail] = useState(email);
   const [newBio, setNewBio] = useState(bio);
@@ -19,16 +22,31 @@ const ProfileScreen = () => {
     setIsEditing(false);
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); 
+      await AsyncStorage.removeItem('currentUserId'); 
+      navigation.navigate('WelcomePage'); 
+    } catch (error) {
+      console.error('Error during sign-out:', error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Profile</Text>
-        {isEditing && (
-          <TouchableOpacity onPress={handleSave}>
-            <MaterialIcons name="done" size={24} color="black" />
+        <View style={styles.headerActions}>
+          <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+            <Ionicons name="log-out-outline" size={24} color="black" />
           </TouchableOpacity>
-        )}
+          {isEditing && (
+            <TouchableOpacity onPress={handleSave}>
+              <MaterialIcons name="done" size={24} color="black" />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       {/* Profile Info */}
@@ -103,6 +121,13 @@ const styles = StyleSheet.create({
     fontFamily: 'outfit-bold',
     fontSize: 35,
   },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logoutButton: {
+    marginRight: 20,
+  },
   profileInfo: {
     alignItems: 'center',
     marginBottom: 40,
@@ -114,18 +139,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   username: {
-    fontFamily:'outfit-medium',
+    fontFamily: 'outfit-medium',
     fontSize: 24,
     marginTop: 10,
   },
   email: {
-    fontFamily:'outfit-regular',
+    fontFamily: 'outfit-regular',
     fontSize: 18,
     color: '#666',
     marginTop: 5,
   },
   bio: {
-    fontFamily:'outfit-regular',
+    fontFamily: 'outfit-regular',
     fontSize: 16,
     marginTop: 10,
     textAlign: 'center',
@@ -140,7 +165,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '100%',
     fontSize: 18,
-    fontFamily:'outfit-medium'
+    fontFamily: 'outfit-medium',
   },
   bioInput: {
     height: 100,
@@ -159,7 +184,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   editButtonText: {
-    fontFamily:'outfit-medium',
+    fontFamily: 'outfit-medium',
     marginLeft: 10,
     fontSize: 18,
   },

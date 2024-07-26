@@ -8,6 +8,7 @@ export default function OptionCard({ option }) {
       <View style={styles.textContainer}>
         <Text style={styles.title}>{option.title}</Text>
         <Text style={styles.desc}>{option.desc}</Text>
+        <Text style={styles.desc}>{option.people}</Text>
       </View>
     </View>
   );

@@ -2,10 +2,11 @@ import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function Header({ navigation }) {
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.navigate('MyTrip')}>
+      <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <View style={styles.rightHeader}>

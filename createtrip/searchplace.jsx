@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, FlatList, Text, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, FlatList, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../createtrip/header';
 import SearchBar from '../createtrip/searchbar';
@@ -23,7 +23,8 @@ const travelData = [
   { id: '4', title: 'Shimla', location: 'Himachal Pradesh', price: '$200', image: require('../assets/images/SHIMLA.jpg') },
   { id: '5', title: 'Patna', location: 'Bihar', price: '$200', image: require('../assets/images/PATNA.jpg') },
 ];
-const recommendations = [
+
+const recommendationPlacesInMumbai = [
   { id: '1', title: 'Gateway of India', location: 'Apollo Bandar, Colaba', image: require('../assets/images/MUMBAI.jpg') },
   { id: '2', title: 'Marine Drive', location: 'Netaji Subhash Chandra Bose Road, Chowpatty', image: require('../assets/images/CHENNAI.jpg') },
   { id: '3', title: 'Elephanta Caves', location: 'Gharapuri Island', image: require('../assets/images/JAIPUR.jpg') },
@@ -31,17 +32,25 @@ const recommendations = [
   { id: '5', title: 'Chhatrapati Shivaji Maharaj Terminus (CST)', location: 'Chhatrapati Shivaji Maharaj Terminus Area, Fort', image: require('../assets/images/PATNA.jpg') },
 ];
 
-  const trendingPlacesInMumbai = [
-    { id: '1', title: 'Juhu Beach', location: 'Juhu, Mumbai', type: 'Beach', image: require('../assets/images/MUMBAI.jpg') },
-    { id: '2', title: 'Grandmama’s Café', location: 'Multiple Locations (e.g., Juhu, Lower Parel)', image: require('../assets/images/CHENNAI.jpg') },
-    { id: '3', title: 'Phoenix Marketcity', location: 'Kurla, Mumbai', type: 'Mall', image: require('../assets/images/JAIPUR.jpg') },
-    { id: '4', title: 'Gateway of India', location: 'Apollo Bandar, Colaba', type: 'Tourist Place',  image: require('../assets/images/SHIMLA.jpg') },
-    { id: '5', title: 'Della Adventure Park', location: 'Lonavala, Maharashtra', type: 'Adventure Sport', image: require('../assets/images/PATNA.jpg') }
-  ];
-  
+const trendingPlacesInMumbai = [
+  { id: '1', title: 'Juhu Beach', location: 'Juhu, Mumbai', type: 'Beach', image: require('../assets/images/MUMBAI.jpg') },
+  { id: '2', title: 'Grandmama’s Café', location: 'Multiple Locations (e.g., Juhu, Lower Parel)', image: require('../assets/images/CHENNAI.jpg') },
+  { id: '3', title: 'Phoenix Marketcity', location: 'Kurla, Mumbai', type: 'Mall', image: require('../assets/images/JAIPUR.jpg') },
+  { id: '4', title: 'Gateway of India', location: 'Apollo Bandar, Colaba', type: 'Tourist Place',  image: require('../assets/images/SHIMLA.jpg') },
+  { id: '5', title: 'Della Adventure Park', location: 'Lonavala, Maharashtra', type: 'Adventure Sport', image: require('../assets/images/PATNA.jpg') }
+];
 
 export default function SearchPlace() {
   const navigation = useNavigation();
+  const [selectedDestination, setSelectedDestination] = useState(travelData[0].title);
+
+  const handleCardSelect = (item) => {
+    if (selectedDestination === item.title) {
+      navigation.navigate('SelectTraveller', { prevData: item });
+    } else {
+      setSelectedDestination(item.title);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -55,8 +64,12 @@ export default function SearchPlace() {
           <Text style={styles.sectionTitle}>Choose Your Destination</Text>
           <FlatList
             data={travelData}
-            renderItem={({ item, index }) => (
-              <TravelCard item={item} isFirstItem={index === 0} navigation={navigation} />
+            renderItem={({ item }) => (
+              <TravelCard
+                item={item}
+                isSelected={item.title === selectedDestination}
+                onSelect={handleCardSelect}
+              />
             )}
             keyExtractor={(item) => item.id}
             horizontal={true}
@@ -67,9 +80,9 @@ export default function SearchPlace() {
         
         {/* Trending Cards Section */}
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Trending In Mumbai</Text>
+          <Text style={styles.sectionTitle}>Trending In {selectedDestination}</Text>
           <FlatList
-            data={trendingPlacesInMumbai}
+            data={getTrendingPlaces(selectedDestination)}
             renderItem={({ item }) => <TrendingCard item={item} />}
             keyExtractor={(item) => item.id}
             horizontal={true}
@@ -82,7 +95,7 @@ export default function SearchPlace() {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Recommendations</Text>
           <FlatList
-            data={recommendations}
+            data={getRecommendations(selectedDestination)}
             renderItem={({ item }) => <RecommendCard item={item} />}
             keyExtractor={(item) => item.id}
             horizontal={true}
@@ -93,6 +106,26 @@ export default function SearchPlace() {
       </ScrollView>
     </View>
   );
+}
+
+function getTrendingPlaces(destination) {
+  switch (destination) {
+    case 'Mumbai':
+      return trendingPlacesInMumbai;
+
+    default:
+      return [];
+  }
+}
+
+function getRecommendations(destination) {
+  switch (destination) {
+    case 'Mumbai':
+      return recommendationPlacesInMumbai;
+    
+    default:
+      return [];
+  }
 }
 
 const styles = StyleSheet.create({
